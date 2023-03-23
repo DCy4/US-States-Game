@@ -17,7 +17,8 @@ guessed_states = []
 while len(guessed_states) < 50:
     #read and store user guess
     answer_state = screen.textinput(title=f"{len(guessed_states)}/50", prompt="What's another state's Name?").title()
-
+    if answer_state == "Exit":
+      break
     #check answer to list the states in all the states in 50_states.csv >>>in keyword only works if data converted to_list()<<<
     if answer_state in all_states:
         guessed_states.append(answer_state)
