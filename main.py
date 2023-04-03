@@ -1,7 +1,6 @@
 import turtle
-
 import pandas
-import pandas as pd
+
 
 screen = turtle.Screen()
 screen.title("US States Game")
@@ -15,10 +14,15 @@ all_states = data.state.to_list()
 guessed_states = []
 
 while len(guessed_states) < 50:
-    #read and store user guess
+    #read and store user guess and convert to title case (using .title())
     answer_state = screen.textinput(title=f"{len(guessed_states)}/50", prompt="What's another state's Name?").title()
     if answer_state == "Exit":
-      break
+        # new list to track all states user did not guess
+        missing_states = []
+        for state in all_states:
+            if state not in guessed_states:
+                missing_states.append(state)
+        break
     #check answer to list the states in all the states in 50_states.csv >>>in keyword only works if data converted to_list()<<<
     if answer_state in all_states:
         guessed_states.append(answer_state)
@@ -28,6 +32,7 @@ while len(guessed_states) < 50:
         state_data = data[data.state == answer_state]
         t.goto(int(state_data.x), int(state_data.y))
         t.write(state_data.state.item())
-            #create turtle to write teh states name in the coordinates
 
+df = pandas.DataFrame(missing_states)
+print(df)
 screen.exitonclick()
